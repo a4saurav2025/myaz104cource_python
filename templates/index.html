@@ -1,72 +1,292 @@
-{% extends "base.html" %}
-
-{% block title %}AZ-104 Azure Administrator Course - Home{% endblock %}
-
-{% block content %}
-<!-- Hero Section -->
-<div class="hero">
-    <h1><i class="fas fa-cloud"></i> Azure AZ-104 Administrator Course</h1>
-    <p>Master Azure administration with comprehensive, interactive learning materials</p>
-</div>
-
-<!-- Sections Overview -->
-<div id="sections" class="grid-container">
-    {% for section in sections %}
-    <div class="card section-card">
-        <div class="card-body">
-            <div class="card-icon">{{ section.icon }}</div>
-            <h5 class="card-title">{{ section.name }}</h5>
-            <p class="card-text">{{ section.topics|length }} topics</p>
-            <a href="{{ url_for('section', section_idx=loop.index0) }}" class="btn btn-primary btn-sm">
-                Explore <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-<!-- Quick Stats -->
-<div class="mt-5 pt-4">
-    <div class="row text-center">
-        <div class="col-md-4">
-            <div class="stat-box">
-                <h3 class="text-primary">{{ sections|length }}</h3>
-                <p>Learning Sections</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-box">
-                <h3 class="text-primary">{{ sections|map(attribute='topics')|map('length')|sum }}</h3>
-                <p>Total Topics</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-box">
-                <h3 class="text-primary">100%</h3>
-                <p>Exam Coverage</p>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AZ-104 Quick Study Guide — Concise & Stylish Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
 <style>
-.stat-box {
-    padding: 2rem;
-    background: white;
-    border-radius: 8px;
-    margin: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+:root{
+  --bg:#0b1220; --card:#0f1830; --muted:#97a3b6; --text:#e6eefc; --accent:#7c9cff; --accent2:#00e7a7;
 }
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, #1a2454 0%, rgba(11,18,32,0) 60%),
+              radial-gradient(1000px 600px at 120% 20%, #193a3f 0%, rgba(11,18,32,0) 55%), var(--bg);
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--text);line-height:1.55}
+header{position:sticky;top:0;background:rgba(11,18,32,0.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08);z-index:9}
+.header-inner{max-width:1120px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;letter-spacing:.3px}
+.logo small{display:block;font-weight:600;color:var(--muted);font-size:12px}
+.cta a{display:inline-block;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#001018;text-decoration:none;padding:10px 14px;border-radius:10px;font-weight:700}
+main{max-width:1120px;margin:28px auto;padding:0 22px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+.card{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.35);padding:22px;border-radius:16px}
+h1{margin:.2rem 0 0;font-size:36px}
+.badge{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:#08131c;background:linear-gradient(90deg,#b5c7ff,#a6ffe3);border-radius:999px;padding:6px 10px;font-weight:800;text-transform:uppercase;letter-spacing:.6px}
+.lede{color:#c9d6ef;font-size:15px}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.kpi .mini{background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.12);border-radius:12px;padding:12px;text-align:center}
+.kpi .mini b{display:block;font-size:18px}
 
-.stat-box h3 {
-    font-weight: 700;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-}
+h2{margin-top:28px;font-size:24px}
+.section{margin:26px 0}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+ul{margin:0 0 0 1.1rem}
+li{margin:.35rem 0}
+code, pre{font-family:"Fira Code",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+pre{background:#0a0f1a;border:1px solid rgba(255,255,255,.08);padding:12px;border-radius:10px;overflow:auto}
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table th, .table td{padding:10px 12px}
+.table th{color:#9fb1d8;text-transform:uppercase;font-size:12px;letter-spacing:.6px}
+.table tr{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.table tr td:first-child{border-left:4px solid var(--accent)}
+footer{margin:40px 0 24px;color:var(--muted);text-align:center}
 
-.stat-box p {
-    color: #666;
-    margin: 0;
-}
+.details{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);border-radius:12px;padding:8px 14px}
+summary{cursor:pointer;font-weight:700}
+
+@media (max-width:960px){.hero{grid-template-columns:1fr}.kpi{grid-template-columns:repeat(2,1fr)}}
 </style>
-{% endblock %}
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="logo">AZ‑104 Quick Study Guide <small>Azure Admin essentials — distilled from your PDF</small></div>
+    <div class="cta"><a href="#toc">Jump to Topics</a></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="card">
+      <span class="badge">Exam Focus</span>
+      <h1>Manage Azure identities, compute, storage, networking & security</h1>
+      <p class="lede">A concise, visually rich summary of Azure Portal/CLI/PowerShell, ARM, pricing & governance, core storage and compute, networking, monitoring, and security services you need for AZ‑104.</p>
+      <div class="kpi">
+        <div class="mini"><b>5</b><span>Core Domains</span></div>
+        <div class="mini"><b>30+</b><span>Key Services</span></div>
+        <div class="mini"><b>15</b><span>Cheat‑sheets</span></div>
+        <div class="mini"><b>Snippets</b><span>CLI & YAML</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2 id="toc">Topics</h2>
+      <ul>
+        <li><a href="#basics">Azure basics & tools</a></li>
+        <li><a href="#govern">Identity, RBAC & Policy</a></li>
+        <li><a href="#storage">Storage services</a></li>
+        <li><a href="#compute">Compute & containers</a></li>
+        <li><a href="#network">Virtual networking & delivery</a></li>
+        <li><a href="#monitor">Monitoring & threat protection</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="basics" class="section">
+    <h2>Azure basics & tools</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Administration tooling</h3>
+        <ul>
+          <li><b>Portal</b> — GUI for ad‑hoc management, dashboards, notifications; not ideal for repetitive tasks.</li>
+          <li><b>Azure CLI</b> — Cross‑platform automation. Example: <code>az vm create --resource-group RG --name VM1 --image UbuntuLTS</code></li>
+          <li><b>PowerShell (Az)</b> — Windows‑centric scripting. Example: <code>New-AzVM -ResourceGroupName RG -Name VM1 -Image UbuntuLTS</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Azure Resource Manager (ARM)</h3>
+        <ul>
+          <li>Central management layer for <em>create/update/delete</em> with consistent RBAC, locks, tags.</li>
+          <li><b>Scopes</b>: Management Group → Subscription → Resource Group → Resource.</li>
+          <li><b>Templates</b> enable declarative, repeatable deployments with dependency ordering.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Cost optimization</h3>
+        <ul>
+          <li>Use <b>Pricing Calculator</b> & <b>Cost Management</b>; save via <b>Reservations</b>, <b>Spot VMs</b>, <b>Hybrid Benefit</b>, and <b>Dev/Test</b> pricing.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Security posture & advice</h3>
+        <ul>
+          <li><b>Defender for Cloud</b> (formerly Security Center): recommendations, secure score, threat protection.</li>
+          <li><b>Azure Advisor</b>: best‑practice guidance across cost, reliability, performance, ops excellence, security.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="govern" class="section">
+    <h2>Identity, RBAC & Policy</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Microsoft Entra ID (Azure AD)</h3>
+        <ul>
+          <li>Cloud identity using OAuth/OIDC/REST; hybrid via <b>Azure AD Connect</b> (hash sync / PTA / federation).</li>
+          <li>Security: Conditional Access, Identity Protection, MFA, named locations.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>RBAC essentials</h3>
+        <ul>
+          <li><b>Role assignment</b> = principal + role definition + scope.</li>
+          <li>Built‑in roles (Owner/Contributor/Reader + data‑plane roles); deny assignments override allows.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Azure Policy</h3>
+        <ul>
+          <li>Define/assign <b>policies</b> and <b>initiatives</b>; evaluate at create/update and every 24h.</li>
+          <li>Common: Allowed locations, not‑allowed resource types, regulatory blueprints.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Service Health</h3>
+        <ul>
+          <li>Personalized incidents, health history, RCAs, and alerting for your regions/services.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="storage" class="section">
+    <h2>Storage services</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Blob Storage</h3>
+        <ul>
+          <li>Blob types: Block (streaming), Append (logs), Page (VHD).</li>
+          <li>Access tiers: Hot/Cool (account), Archive (blob‑level; requires rehydration).</li>
+          <li>Redundancy: LRS, ZRS, GRS/RA‑GRS, GZRS/RA‑GZRS; lifecycle management & soft delete.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Files, Disks, Queues, Tables</h3>
+        <ul>
+          <li><b>Azure Files</b>: SMB/NFS shares; use Premium for IO‑intensive; snapshot for backup.</li>
+          <li><b>Managed Disks</b>: Standard HDD/SSD, Premium SSD, Ultra (data disk only, huge IOPS).</li>
+          <li><b>Queues</b>: simple decoupled messaging (64 KB msg, 500 GB queue).</li>
+          <li><b>Tables</b>: NoSQL key/attribute store; partition+row key design.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Key Vault</h3>
+        <ul>
+          <li>Secrets/Keys/Certs with RBAC or access policies; versioning and audit; data vs management plane.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="compute" class="section">
+    <h2>Compute & containers</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Virtual Machines</h3>
+        <table class="table">
+          <tr><th>Family</th><th>Best for</th></tr>
+          <tr><td>General purpose (D)</td><td>Balanced CPU/RAM</td></tr>
+          <tr><td>Compute (F)</td><td>CPU‑bound apps</td></tr>
+          <tr><td>Memory (E/M)</td><td>DB/RAM‑heavy</td></tr>
+          <tr><td>Storage (Lsv2)</td><td>High throughput / DW</td></tr>
+          <tr><td>GPU / HPC</td><td>ML/graphics & CFD</td></tr>
+        </table>
+        <ul>
+          <li>Availability via sets/zones/VMSS; cost: Reservations, Spot, Hybrid Benefit.</li>
+          <li>Backup: Azure Backup, ASR, or snapshots.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>App Service</h3>
+        <ul>
+          <li>PaaS for web/APIs; plans: Free/Shared/Basic/Premium/Isolated; slots, scaling, custom domain/SSL.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Containers</h3>
+        <ul>
+          <li><b>ACR</b> (Basic/Standard/Premium; roles AcrPush/AcrPull; Content Trust; geo‑replication).</li>
+          <li><b>ACI</b> for simple isolated containers; VNet, probes, container groups.</li>
+          <li><b>AKS</b> for orchestration: node pools, deployments, services/ingress, PVs.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="network" class="section">
+    <h2>Virtual networking & delivery</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>VNet fundamentals</h3>
+        <ul>
+          <li>Address spaces & subnets; NICs; NSGs (priority: lower = earlier); peering (no overlapping ranges).</li>
+          <li>Azure DNS (public/private); 168.63.129.16 for DHCP/DNS wire server.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Security & routing</h3>
+        <ul>
+          <li><b>Azure Firewall</b>: stateful, rule collections, Threat Intel, centralized policy (hub‑spoke).</li>
+          <li><b>DDoS Protection</b>: Basic (free) vs Standard (credits, metrics, DDRT, multi‑layer).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Load balancing & gateways</h3>
+        <ul>
+          <li><b>Load Balancer</b> (L4), <b>App Gateway</b> (L7 + WAF), <b>Front Door</b> (global HTTP), <b>Traffic Manager</b> (DNS‑based).</li>
+          <li>Connectivity: <b>VPN Gateway</b> (S2S/P2S, IPsec) and <b>ExpressRoute</b> (private circuit, BGP).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>CDN</h3>
+        <ul>
+          <li>Edge caching; Microsoft/Akamai/Verizon SKUs; define origin, TTL, HTTPS, rules.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="monitor" class="section">
+    <h2>Monitoring & threat protection</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Azure Monitor</h3>
+        <ul>
+          <li>Metrics + Logs (KQL) → Alerts, Autoscale; Workbooks, Insights (App/VM/Storage/AKS).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Microsoft Sentinel</h3>
+        <ul>
+          <li>SIEM/SOAR on Log Analytics: connectors, analytics rules, workbooks, hunting, automation.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>SQL Defender & AIP</h3>
+        <ul>
+          <li>Defender for SQL: vulnerability assessment & ATP alerts (SQLi, anomalous access).</li>
+          <li>Azure Information Protection: label, classify, protect, and track documents.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section details">
+    <summary>Handy CLI snippets</summary>
+    <pre>az group create -n RG -l westus
+az storage account create -n mystorage -g RG -l westus --sku Standard_LRS --kind StorageV2
+az vm create -g RG -n vm1 --image UbuntuLTS --admin-username azureuser --generate-ssh-keys
+az acr create -n myacr -g RG --sku Standard
+az aks create -g RG -n myaks --node-count 2 --generate-ssh-keys
+    </pre>
+  </section>
+
+  <footer>
+    <p>Built from your <em>az104.pdf</em> — summarized for quick revision. © 2026</p>
+  </footer>
+</main>
+</body>
+</html>
