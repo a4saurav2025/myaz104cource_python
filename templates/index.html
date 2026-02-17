@@ -4,8 +4,9 @@
 
 {% block content %}
 <div class="text-center mb-5">
-    <h1>Welcome to AZ-104 Learning App</h1>
+    <h1>Welcome to AZ-104 Learning Path</h1>
     <p class="lead">Master Microsoft Azure Administrator skills with this sequential learning path.</p>
+    <a href="{{ url_for('resources') }}" class="btn btn-outline-info mt-2">View all resources (single page)</a>
 </div>
 <div class="row">
     {% for mod_id in modules %}

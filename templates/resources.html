@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}All Resources - AZ-104{% endblock %}
+
+{% block content %}
+<h2>All resources (single page)</h2>
+<div class="d-flex gap-2 mb-3">
+    <button id="expandAllBtn" class="btn btn-sm btn-outline-success">Expand all</button>
+    <button id="collapseAllBtn" class="btn btn-sm btn-outline-secondary">Collapse all</button>
+</div>
+
+<p class="text-muted">Short descriptions for every module and lesson — consolidated on one page for quick reference.</p>
+
+{% set last_module = None %}
+{% for item in all_resources %}
+    {% if item.module_id != last_module %}
+        {% if not loop.first %}
+            <hr />
+        {% endif %}
+        <h3 class="mt-3">{{ item.module_title }}</h3>
+        <p class="text-muted">{{ item.module_description }}</p>
+        {% set last_module = item.module_id %}
+    {% endif %}
+
+    <div class="mb-3">
+        <h5>{{ item.lesson_id }}. {{ item.title }}</h5>
+        <p>{{ item.description }}</p>
+        <p><strong>Key concepts:</strong> {{ item.key_concepts | join(', ') }}</p>
+
+        {% if item.best_practices %}
+        <div class="accordion mb-2" id="bpAccordion-{{ item.module_id }}-{{ item.lesson_id }}">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-{{ item.module_id }}-{{ item.lesson_id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ item.module_id }}-{{ item.lesson_id }}" aria-expanded="false" aria-controls="collapse-{{ item.module_id }}-{{ item.lesson_id }}">
+                        Best practices ({{ item.best_practices | length }})
+                    </button>
+                </h2>
+                <div id="collapse-{{ item.module_id }}-{{ item.lesson_id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ item.module_id }}-{{ item.lesson_id }}" data-bs-parent="#bpAccordion-{{ item.module_id }}-{{ item.lesson_id }}">
+                    <div class="accordion-body px-3">
+                        <ul class="mb-0">
+                            {% for bp in item.best_practices %}
+                            <li>{{ bp }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-muted"><em>No best practices available.</em></p>
+        {% endif %}
+
+        <a href="{{ url_for('lesson', module_id=item.module_id, lesson_id=item.lesson_id) }}" class="btn btn-sm btn-outline-primary">Open lesson</a>
+    </div>
+{% endfor %}
+
+<script>
+(function(){
+    const expandBtn = document.getElementById('expandAllBtn');
+    const collapseBtn = document.getElementById('collapseAllBtn');
+    function getCollapses(){ return Array.from(document.querySelectorAll('.accordion-collapse')); }
+    expandBtn?.addEventListener('click', () => {
+        getCollapses().forEach(el => {
+            const inst = bootstrap.Collapse.getOrCreateInstance(el);
+            inst.show();
+        });
+    });
+    collapseBtn?.addEventListener('click', () => {
+        getCollapses().forEach(el => {
+            const inst = bootstrap.Collapse.getOrCreateInstance(el);
+            inst.hide();
+        });
+    });
+})();
+</script>
+
+<a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back to Home</a>
+{% endblock %}
