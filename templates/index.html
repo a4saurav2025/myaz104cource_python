@@ -1,24 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}Home - AZ-104 Learning App{% endblock %}
+{% block title %}AZ-104 Azure Administrator Course - Home{% endblock %}
 
 {% block content %}
-<div class="text-center mb-5">
-    <h1>Welcome to AZ-104 Learning Path</h1>
-    <p class="lead">Master Microsoft Azure Administrator skills with this sequential learning path.</p>
-    <a href="{{ url_for('resources') }}" class="btn btn-outline-info mt-2">View all resources (single page)</a>
+<!-- Hero Section -->
+<div class="hero">
+    <h1><i class="fas fa-cloud"></i> Azure AZ-104 Administrator Course</h1>
+    <p>Master Azure administration with comprehensive, interactive learning materials</p>
 </div>
-<div class="row">
-    {% for mod_id in modules %}
-    <div class="col-md-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{ content[mod_id]['title'] }}</h5>
-                <p class="card-text">{{ content[mod_id]['description'] }}</p>
-                <a href="{{ url_for('module', module_id=mod_id) }}" class="btn btn-primary">Start Module</a>
-            </div>
+
+<!-- Sections Overview -->
+<div id="sections" class="grid-container">
+    {% for section in sections %}
+    <div class="card section-card">
+        <div class="card-body">
+            <div class="card-icon">{{ section.icon }}</div>
+            <h5 class="card-title">{{ section.name }}</h5>
+            <p class="card-text">{{ section.topics|length }} topics</p>
+            <a href="{{ url_for('section', section_idx=loop.index0) }}" class="btn btn-primary btn-sm">
+                Explore <i class="fas fa-arrow-right ms-2"></i>
+            </a>
         </div>
     </div>
     {% endfor %}
 </div>
+
+<!-- Quick Stats -->
+<div class="mt-5 pt-4">
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h3 class="text-primary">{{ sections|length }}</h3>
+                <p>Learning Sections</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h3 class="text-primary">{{ sections|map(attribute='topics')|map('length')|sum }}</h3>
+                <p>Total Topics</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-box">
+                <h3 class="text-primary">100%</h3>
+                <p>Exam Coverage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.stat-box {
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.stat-box h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-box p {
+    color: #666;
+    margin: 0;
+}
+</style>
 {% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.name }} - AZ-104{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="breadcrumb-item active">{{ section.name }}</li>
+    </ol>
+</nav>
+
+<!-- Section Header -->
+<div class="section-header">
+    <div style="font-size: 3rem; margin-bottom: 1rem;">{{ section.icon }}</div>
+    <h1>{{ section.name }}</h1>
+    <p>{{ section.topics|length }} essential topics</p>
+</div>
+
+<!-- Topics Grid -->
+<div class="grid-container">
+    {% for topic in section.topics %}
+    <div class="card topic-card">
+        <div class="card-icon">{{ topic.icon }}</div>
+        <h5 class="card-title">{{ topic.name }}</h5>
+        <p class="card-text">{{ topic.description[:120] }}...</p>
+        <a href="{{ url_for('topic', section_idx=section_idx, topic_idx=loop.index0) }}" class="btn btn-primary btn-sm">
+            Learn More <i class="fas fa-arrow-right ms-1"></i>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Navigation -->
+{% if section_idx > 0 or section_idx < total_sections - 1 %}
+<div class="nav-footer">
+    {% if section_idx > 0 %}
+    <a href="{{ url_for('section', section_idx=section_idx-1) }}" class="nav-button nav-button-prev">
+        <i class="fas fa-arrow-left"></i> Previous Section
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+    
+    {% if section_idx < total_sections - 1 %}
+    <a href="{{ url_for('section', section_idx=section_idx+1) }}" class="nav-button nav-button-next">
+        Next Section <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}{{ topic.name }} - AZ-104{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url_for('section', section_idx=section_idx) }}">{{ section.name }}</a></li>
+        <li class="breadcrumb-item active">{{ topic.name }}</li>
+    </ol>
+</nav>
+
+<!-- Topic Detail -->
+<div class="topic-detail">
+    <h1>{{ topic.icon }} {{ topic.name }}</h1>
+    <div class="topic-description">
+        {{ topic.description }}
+    </div>
+    
+    <div class="alert alert-info" role="alert">
+        <i class="fas fa-lightbulb"></i> <strong>Key Learning Area:</strong> Study this topic thoroughly as it's essential for the AZ-104 exam.
+    </div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-footer">
+    {% if prev_topic is not none %}
+    <a href="{{ url_for('topic', section_idx=prev_section_idx, topic_idx=prev_topic) }}" class="nav-button nav-button-prev">
+        <i class="fas fa-arrow-left"></i> Previous
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+    
+    <a href="{{ url_for('section', section_idx=section_idx) }}" class="nav-button" style="background: var(--light-bg); color: var(--primary-color); border: 1px solid #ddd;">
+        <i class="fas fa-list"></i> Back to Section
+    </a>
+    
+    {% if next_topic is not none %}
+    <a href="{{ url_for('topic', section_idx=next_section_idx, topic_idx=next_topic) }}" class="nav-button nav-button-next">
+        Next <i class="fas fa-arrow-right ms-2"></i>
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+</div>
+
+<style>
+.alert {
+    border-radius: 8px;
+    border: 1px solid #d1e7f7;
+    background: #f0f8ff;
+    color: #004085;
+}
+</style>
+{% endblock %}
