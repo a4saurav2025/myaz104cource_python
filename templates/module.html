@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ module['title'] }}{% endblock %}
+
+{% block content %}
+<h2>{{ module['title'] }}</h2>
+<p>{{ module['description'] }}</p>
+<ul class="list-group mb-4">
+    {% for lesson_id, lesson in lessons.items() %}
+    <li class="list-group-item">
+        <a href="{{ url_for('lesson', module_id=module_id, lesson_id=lesson_id) }}">{{ lesson['title'] }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+{% endblock %}
