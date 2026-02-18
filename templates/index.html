@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>AZ-104 Quick Study Guide — Concise & Stylish Summary</title>
+<title>Aaure-DevOps Quick Study Guide — Concise & Stylish Summary</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
@@ -287,6 +287,104 @@ az aks create -g RG -n myaks --node-count 2 --generate-ssh-keys
   <footer>
     <p>Built from your <em>az104.pdf</em> — summarized for quick revision. © 2026</p>
   </footer>
+
+  <!-- Azure Cloud Concepts Section -->
+  <section id="cloudconcepts" class="section">
+    <h2>Azure Cloud Computing Concepts</h2>
+    <div class="card">
+      <h3>1. Computing</h3>
+      <p>Computing in Azure refers to the various services that allow users to run applications and workloads in the cloud.</p>
+      <h4>1.1 Virtual Machines (VMs)</h4>
+      <p>Virtual Machines are scalable computing resources that allow users to run applications in a virtualized environment.</p>
+      <ul>
+        <li><strong>Definition:</strong> A VM is an emulation of a physical computer that runs an operating system and applications.</li>
+      </ul>
+      <h4>1.2 Azure App Services</h4>
+      <p>Azure App Services is a platform for building and hosting web applications.</p>
+      <ul>
+        <li><strong>Definition:</strong> It provides a fully managed platform for building, deploying, and scaling web apps.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>2. Networking</h3>
+      <p>Networking in Azure encompasses the services that connect and secure resources in the cloud.</p>
+      <h4>2.1 Virtual Networks (VNet)</h4>
+      <p>A Virtual Network is a representation of your own network in the cloud.</p>
+      <ul>
+        <li><strong>Definition:</strong> VNets allow Azure resources to communicate with each other securely.</li>
+      </ul>
+      <h4>2.2 Azure Load Balancer</h4>
+      <p>The Azure Load Balancer distributes incoming network traffic across multiple servers.</p>
+      <ul>
+        <li><strong>Definition:</strong> It ensures high availability and reliability by distributing workloads.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>3. Storage</h3>
+      <p>Azure Storage provides scalable cloud storage for data, applications, and workloads.</p>
+      <h4>3.1 Blob Storage</h4>
+      <p>Blob Storage is used for storing large amounts of unstructured data.</p>
+      <ul>
+        <li><strong>Definition:</strong> It is ideal for storing files, images, and backups.</li>
+      </ul>
+      <h4>3.2 Azure Files</h4>
+      <p>Azure Files offers fully managed file shares in the cloud.</p>
+      <ul>
+        <li><strong>Definition:</strong> It allows users to access files via SMB protocol.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>4. Secret Management</h3>
+      <p>Secret Management in Azure involves securely storing and managing sensitive information.</p>
+      <h4>4.1 Azure Key Vault</h4>
+      <p>Azure Key Vault is a cloud service for securely storing and accessing secrets.</p>
+      <ul>
+        <li><strong>Definition:</strong> It helps safeguard cryptographic keys and secrets used by cloud applications.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Conclusion</h3>
+      <p>Understanding these core concepts is essential for anyone looking to become an Azure Administrator. Each service plays a crucial role in the overall architecture and functionality of Azure cloud solutions.</p>
+    </div>
+  </section>
+
+  <!-- DevOps Q&A Section -->
+  <section id="devopsqa" class="section">
+    <h2>DevOps Q&A Guide</h2>
+    <div class="card">
+      <h3>Source Code Management</h3>
+      <p>It is a process through which we can store and manage any code. Developers write code, testers write test cases, and DevOps engineers write scripts. This code can be stored and managed in Source Code Management. Different teams can store code simultaneously, and all changes are saved separately. We can retrieve this code at any point of time.</p>
+      <ul>
+        <li>Helps in achieving teamwork</li>
+        <li>Supports parallel feature development</li>
+        <li>Acts like a pipeline between offshore & onshore teams</li>
+        <li>Tracks changes at minute level</li>
+        <li>Allows multiple people to store code simultaneously</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Git Overview</h3>
+      <p>Git is the most advanced Source Code Management tool. It is a distributed version control system (DVCS) where every update is stored as a new version. Each version has a unique commit ID, allowing tracking of changes. Git uses incremental backups (snapshots), making it fast and space-efficient.</p>
+      <ul>
+        <li>Speed: Uses incremental snapshots for efficiency.</li>
+        <li>Parallel Branching: Unlimited branches for parallel development.</li>
+        <li>Fully Distributed: Backup copies available across multiple servers.</li>
+      </ul>
+    </div>
+    <!-- Add more DevOps Q&A cards as needed, or paste the full content from devops.html here -->
+    <div class="card">
+      <h3>CI/CD, Containerization, Monitoring, Security, Cloud Computing</h3>
+      <ul>
+        <li>Continuous Integration (CI): Practice of automatically integrating code changes into a shared repository multiple times a day, with automated builds and tests to detect issues early.</li>
+        <li>Continuous Delivery (CD): Extends CI by automatically deploying code changes to staging or production environments after passing tests, enabling faster and reliable releases.</li>
+        <li>Continuous Deployment: Automates the deployment process fully, releasing every change that passes automated tests directly to production without manual intervention.</li>
+        <li>Containerization: Packaging applications and their dependencies into lightweight, portable containers that run consistently across environments.</li>
+        <li>Monitoring and Logging: Essential for maintaining system health, performance, and troubleshooting by collecting metrics and logs.</li>
+        <li>DevSecOps: Integrates security practices into the DevOps process to ensure secure software delivery.</li>
+        <li>Cloud Computing in DevOps: Utilizes cloud platforms to provide scalable infrastructure and services for DevOps workflows.</li>
+      </ul>
+    </div>
+  </section>
 </main>
 </body>
 </html>
